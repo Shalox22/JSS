@@ -1,0 +1,45 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEBUG=False
+    volumes:
+      - ./backend:/app
+
+  feces_model:
+    build: ./feces_model
+    ports:
+      - "8001:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./feces_model:/app
+
+  waste_model:
+    build: ./waste_model
+    ports:
+      - "8002:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MODEL_PATH=/app/model/yolo26n.pt
+    volumes:
+      - ./waste_model:/app
+      - /dev/video0:/dev/video0  # For camera access (optional)
+
+  # Optional: Add Postgres for backend later
+  # postgres:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_DB: ai_platform
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+# volumes:
+#   postgres_data:

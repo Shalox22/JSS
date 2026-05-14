@@ -1,0 +1,5 @@
+# Pin versions for predictable Docker builds on Python 3.9 (avoids resolver pulling deps that require newer Python)
+fastapi==0.115.6
+uvicorn==0.30.6
+python-multipart==0.0.9
+Pillow==10.4.0

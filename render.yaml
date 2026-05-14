@@ -1,0 +1,16 @@
+services:
+  - type: web_service
+    name: feces-model
+    env: docker
+    branch: main
+    rootDir: feces_model
+    dockerfilePath: Dockerfile
+    autoDeploy: true
+
+  - type: web_service
+    name: waste-model
+    env: docker
+    branch: main
+    rootDir: waste_model
+    dockerfilePath: Dockerfile
+    autoDeploy: true
