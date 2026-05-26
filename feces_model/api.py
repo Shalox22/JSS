@@ -12,7 +12,8 @@ try:
     import tensorflow as tf  # type: ignore[reportMissingModuleSource]
     from tensorflow.keras.models import load_model  # type: ignore[reportMissingModuleSource]
 
-    model = load_model("poultry_disease_cnn.h5")
+    # load without compiling to avoid issues with optimizer/function signatures
+    model = load_model("poultry_disease_cnn.h5", compile=False)
 except Exception as e:
     model_load_error = str(e)
 class_names = ["Healthy", "Coccidiosis", "Newcastle Disease", "Salmonella"]
