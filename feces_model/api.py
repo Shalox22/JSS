@@ -24,6 +24,14 @@ if model is not None:
 else:
     model_height = model_width = model_channels = None
 
+@app.get("/model_status")
+def model_status():
+     """Return model load status and error (if any). Useful for debugging on Render."""
+     return {
+          "model_loaded": model is not None,
+          "load_error": model_load_error,
+     }
+
 @app.get("/")
 def home():
     return {"message": "Welcome to Poultry Disease Detection API"}
