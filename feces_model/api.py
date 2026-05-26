@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from PIL import Image
 import io
+import traceback
 
 app = FastAPI(title="Poultry Disease Detection API")
 
@@ -14,8 +15,10 @@ try:
 
     # load without compiling to avoid issues with optimizer/function signatures
     model = load_model("poultry_disease_cnn.h5", compile=False)
-except Exception as e:
-    model_load_error = str(e)
+except Exception:
+    # capture full traceback for better diagnostics in Render logs
+    model_load_error = traceback.format_exc()
+    print("Model load traceback:\n", model_load_error)
 class_names = ["Healthy", "Coccidiosis", "Newcastle Disease", "Salmonella"]
 
 # Automatically get input shape from the model
